@@ -11,7 +11,6 @@ import SwiftUI
 struct HeroesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
-        }
+            HeroesListContainer(viewModel: HeroesViewModel())        }
     }
 }

@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		645348A126A47BC800700CD1 /* HeroesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645348A026A47BC800700CD1 /* HeroesApp.swift */; };
-		645348A326A47BC800700CD1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645348A226A47BC800700CD1 /* ContentView.swift */; };
 		645348A526A47BC900700CD1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 645348A426A47BC900700CD1 /* Assets.xcassets */; };
 		645348A826A47BC900700CD1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 645348A726A47BC900700CD1 /* Preview Assets.xcassets */; };
 		645348B326A47BC900700CD1 /* HeroesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645348B226A47BC900700CD1 /* HeroesTests.swift */; };
 		645348BE26A47BC900700CD1 /* HeroesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645348BD26A47BC900700CD1 /* HeroesUITests.swift */; };
+		64BA4FC426A6B16D00FA0000 /* HeroesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA4FC126A6B16D00FA0000 /* HeroesList.swift */; };
+		64BA4FC526A6B16D00FA0000 /* HeroesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64BA4FC226A6B16D00FA0000 /* HeroesData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +36,6 @@
 /* Begin PBXFileReference section */
 		6453489D26A47BC800700CD1 /* Heroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heroes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		645348A026A47BC800700CD1 /* HeroesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesApp.swift; sourceTree = "<group>"; };
-		645348A226A47BC800700CD1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		645348A426A47BC900700CD1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		645348A726A47BC900700CD1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		645348A926A47BC900700CD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +45,8 @@
 		645348B926A47BC900700CD1 /* HeroesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HeroesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		645348BD26A47BC900700CD1 /* HeroesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroesUITests.swift; sourceTree = "<group>"; };
 		645348BF26A47BC900700CD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64BA4FC126A6B16D00FA0000 /* HeroesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroesList.swift; sourceTree = "<group>"; };
+		64BA4FC226A6B16D00FA0000 /* HeroesData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeroesData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				645348A026A47BC800700CD1 /* HeroesApp.swift */,
-				645348A226A47BC800700CD1 /* ContentView.swift */,
+				64BA4FC226A6B16D00FA0000 /* HeroesData.swift */,
+				64BA4FC126A6B16D00FA0000 /* HeroesList.swift */,
 				645348A426A47BC900700CD1 /* Assets.xcassets */,
 				645348A926A47BC900700CD1 /* Info.plist */,
 				645348A626A47BC900700CD1 /* Preview Content */,
@@ -259,8 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				645348A326A47BC800700CD1 /* ContentView.swift in Sources */,
 				645348A126A47BC800700CD1 /* HeroesApp.swift in Sources */,
+				64BA4FC526A6B16D00FA0000 /* HeroesData.swift in Sources */,
+				64BA4FC426A6B16D00FA0000 /* HeroesList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
