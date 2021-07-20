@@ -155,12 +155,19 @@ enum HeroesData {
     
     static func getHeroesResponse(page: Int) -> AnyPublisher<[Hero], Error> {
         let url = URL(
-            referer:"developer.marvel.com",
-            string: "http://gateway.marvel.com:80/v1/public/characters?apikey=8c20814552fcd4f513adb7f15c67a39b&limit=\(Self.pageSize)&offset=\(page)")!
-        return URLSession.shared
             
-            .dataTaskPublisher(for: url)
-            .handleEvents(receiveOutput: { print(NSString(data: $0.data, encoding: String.Encoding.utf8.rawValue)!) })
+//            referer:,
+            string: "https://gateway.marvel.com/v1/public/characters?apikey=8c20814552fcd4f513adb7f15c67a39b&limit=\(Self.pageSize)&offset=\(page)"
+        
+        )!
+        
+        var req = URLRequest(url: url)
+        req.setValue("developer.marvel.com", forHTTPHeaderField: "Referer")
+
+        return URLSession.DataTaskPublisher(request: req, session: .shared)
+            .handleEvents(receiveOutput: {
+                print("\n\n/*** Received ***/ \(NSString(data: $0.data, encoding: String.Encoding.utf8.rawValue)!) /*** Received END ***/ \n\n")
+            })
             .tryMap { try JSONDecoder().decode(HeroesDataResponse<Hero>.self, from: $0.data).items }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
