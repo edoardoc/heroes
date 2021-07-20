@@ -90,7 +90,7 @@ struct HeroRow: View {
     var body: some View {
         VStack {
             Text(hero.name).font(.title)
-            Text("⭐️ \(hero.id)")
+            Text("ID: \(hero.id)")
             hero.description.map(Text.init)?.font(.body)
         }
         .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)

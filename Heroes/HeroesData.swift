@@ -5,7 +5,6 @@
 //  Created by Edoardo on 18/07/2021.
 //
 
-
 /*
 
 SAMPLE RESPONSE
@@ -140,10 +139,6 @@ SAMPLE RESPONSE
   }
 }
 
-
-
-
-
 */
 
 
@@ -154,10 +149,9 @@ enum HeroesData {
     static let pageSize = 10
     
     static func getHeroesResponse(page: Int) -> AnyPublisher<[Hero], Error> {
+        print("chiamo pagina \(page) offset=\((page-1)*pageSize)")
         let url = URL(
-            
-//            referer:,
-            string: "https://gateway.marvel.com/v1/public/characters?apikey=8c20814552fcd4f513adb7f15c67a39b&limit=\(Self.pageSize)&offset=\(page)"
+            string: "https://gateway.marvel.com/v1/public/characters?apikey=8c20814552fcd4f513adb7f15c67a39b&limit=\(Self.pageSize)&offset=\((page-1)*pageSize)"
         
         )!
         
@@ -168,15 +162,28 @@ enum HeroesData {
             .handleEvents(receiveOutput: {
                 print("\n\n/*** Received ***/ \(NSString(data: $0.data, encoding: String.Encoding.utf8.rawValue)!) /*** Received END ***/ \n\n")
             })
-            .tryMap { try JSONDecoder().decode(HeroesDataResponse<Hero>.self, from: $0.data).items }
+            .tryMap { try JSONDecoder().decode(MarvelResponse.self, from: $0.data).data.results }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }
 
-struct HeroesDataResponse<T: Codable>: Codable {
-    let items: [T]
+struct MarvelResponse: Decodable {
+    let code: Int
+    let status: String
+    let copyright: String
+
+    struct Data: Decodable {
+        let offset: Int
+        let limit: Int
+        let total: Int
+        let results: [Hero]
+    }
+    let data: Data
+    
 }
+
+//let data: HeroesDataResults<Hero>
 
 struct Hero: Codable, Identifiable, Equatable {
     let id: Int
