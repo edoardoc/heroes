@@ -183,10 +183,13 @@ struct MarvelResponse: Decodable {
     
 }
 
-//let data: HeroesDataResults<Hero>
-
 struct Hero: Codable, Identifiable, Equatable {
     let id: Int
     let name: String
     let description: String?
+    struct Thumbnail: Codable, Equatable {
+      let path: String
+      let `extension`: String
+    }
+    let thumbnail: Thumbnail
 }

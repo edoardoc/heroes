@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 // To hide the navigation bar
 // from https://stackoverflow.com/a/60492133/436085
@@ -130,10 +131,18 @@ struct HeroRow: View {
 
 struct HeroDetail: View {
     let hero: Hero
-
     var body: some View {
+        GeometryReader { geometry in
+            KFImage(URL(string: "\(hero.thumbnail.path).\(hero.thumbnail.extension)")!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+                .frame(width: geometry.size.width)
+        }
+
         VStack {
-            
+            Text("\(hero.thumbnail.path) + \(hero.thumbnail.extension)")
+
 //            RoundedImage(imageName: hero.image!, size: 120).padding()
             Text(hero.name)
                 .font(.title)
@@ -159,6 +168,7 @@ struct HeroDetail: View {
             }
             Spacer()
         }
-        .navigationBarTitle(Text(hero.name))
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
