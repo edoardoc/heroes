@@ -9,6 +9,32 @@
 import SwiftUI
 import Combine
 
+// To hide the navigation bar
+// from https://stackoverflow.com/a/60492133/436085
+struct HiddenNavigationBar: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+        .navigationBarTitle("", displayMode: .inline)
+        .navigationBarHidden(true)
+    }
+}
+extension View {
+    func hiddenNavigationBarStyle() -> some View {
+        modifier( HiddenNavigationBar() )
+    }
+}
+// To hide the navigation bar
+
+// to hide the status bar
+// from https://stackoverflow.com/a/64852835/436085
+extension UIViewController {
+    func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+}
+// to hide the status bar
+
+
 class HeroesViewModel: ObservableObject {
     @Published private(set) var state = State()
     private var subscriptions = Set<AnyCancellable>()
@@ -61,27 +87,32 @@ struct HeroesList: View {
     let heroes: [Hero]
     let isLoading: Bool
     let onScrolledAtBottom: () -> Void
-    
+
     var body: some View {
-        List {
-            heroesList
-            if isLoading {
-                ProgressView("contacting API")
-                    .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+        NavigationView {
+            List {
+                heroesList
+                if isLoading {
+                    ProgressView("contacting API")
+                        .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+                }
             }
+        .hiddenNavigationBarStyle()
         }
     }
     
     private var heroesList: some View {
         ForEach(heroes) { hero in
-            HeroRow(hero: hero).onAppear {
-                if self.heroes.last == hero {
-                    self.onScrolledAtBottom()
+            NavigationLink(destination: HeroDetail(hero: hero)) {
+                HeroRow(hero: hero).onAppear {
+                    if self.heroes.last == hero {
+                        self.onScrolledAtBottom()
+                    }
                 }
             }
         }
+        
     }
-    
 }
 
 struct HeroRow: View {
@@ -94,5 +125,40 @@ struct HeroRow: View {
             hero.description.map(Text.init)?.font(.body)
         }
         .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+    }
+}
+
+struct HeroDetail: View {
+    let hero: Hero
+
+    var body: some View {
+        VStack {
+            
+//            RoundedImage(imageName: hero.image!, size: 120).padding()
+            Text(hero.name)
+                .font(.title)
+            Divider()
+            VStack(alignment: .leading) {
+                // HStack(alignment: .top) {
+                //     Text("Job Title")
+                //         .font(.subheadline)
+                //         .bold()
+                //     Spacer()
+                //     Text(hero.jobTitleName)
+                //         .font(.subheadline)
+                // }.padding()
+                HStack(alignment: .top) {
+                    Text("Description")
+                        .font(.subheadline)
+                        .bold()
+                    Spacer()
+                    Text(hero.description!)
+                        .font(.subheadline)
+                }.padding()
+
+            }
+            Spacer()
+        }
+        .navigationBarTitle(Text(hero.name))
     }
 }
