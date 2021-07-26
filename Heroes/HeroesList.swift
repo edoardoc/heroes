@@ -121,6 +121,11 @@ struct HeroRow: View {
     
     var body: some View {
         VStack {
+            KFImage(URL(string: "\(hero.thumbnail.path).\(hero.thumbnail.extension)")!)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+
             Text(hero.name).font(.title)
             Text("ID: \(hero.id)")
             hero.description.map(Text.init)?.font(.body)
@@ -139,9 +144,12 @@ struct HeroDetail: View {
                 .edgesIgnoringSafeArea(.all)
                 .frame(width: geometry.size.width)
         }
+        Text("\(hero.thumbnail.path) + \(hero.thumbnail.extension)")
+Text(hero.name)
+    .font(.title)
+    
 
         VStack {
-            Text("\(hero.thumbnail.path) + \(hero.thumbnail.extension)")
 
 //            RoundedImage(imageName: hero.image!, size: 120).padding()
             Text(hero.name)
@@ -166,9 +174,12 @@ struct HeroDetail: View {
                 }.padding()
 
             }
-            Spacer()
+            Button("Press Me") {
+                print("Pressed")
+            }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .navigationBarTitle("")
-        .navigationBarHidden(true)
+//        .navigationBarHidden(true)
     }
 }
